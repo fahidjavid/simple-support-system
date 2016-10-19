@@ -113,6 +113,21 @@ class Simple_Support_System {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-simple-support-system-admin.php';
 
+        /**
+         * The class responsible for envato api integration
+         */
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/envato-api-wrapper.php';
+
+        /**
+         * The class responsible for adding all the plugin shortcodes
+         */
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-simple-support-system-shortcodes.php';
+
+        /**
+         * The class responsible for handling all the plugin forms
+         */
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-simple-support-system-handler.php';
+
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
@@ -154,7 +169,19 @@ class Simple_Support_System {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
-	}
+        $sss_shortcode = new Simple_Support_System_Shortcodes();
+        add_shortcode( 'sss_verify_purchase_form', array( $sss_shortcode, 'sss_verify_purchase_form_shortcode') );
+        add_shortcode( 'sss_register_user_form', array( $sss_shortcode, 'sss_register_user_form_shortcode') );
+        add_shortcode( 'sss_register_login_form', array( $sss_shortcode, 'sss_login_user_form_shortcode') );
+        add_shortcode( 'sss_create_ticket_form', array( $sss_shortcode, 'sss_create_ticket_form_shortcode') );
+
+        $sss_handler = new Simple_Support_System_Handler();
+        add_shortcode( 'sss_verify_purchase', array( $sss_handler, 'sss_verify_purchase_form') );
+        add_shortcode( 'sss_register_user', array( $sss_handler, 'sss_register_user_form') );
+        add_shortcode( 'sss_create_ticket', array( $sss_handler, 'sss_create_ticket_form') );
+
+
+    }
 
 	/**
 	 * Register all of the hooks related to the public-facing functionality
