@@ -20,8 +20,6 @@ class Simple_Support_System_Handler {
 
         ob_start();
 
-//        require_once get_template_directory() . '/support/envato-api-wrapper.php';
-
         $ticket_submit = false;
 
         $envato = new Inspiry_Envato_API_Wrapper();
@@ -177,9 +175,9 @@ class Simple_Support_System_Handler {
 
             echo '<div class="col-md-6">';
             echo '<div class="form-after-purchase">';
-            $envato->display_message( __( 'Purchase Code Verified!', 'inspiry' ) );
+//            $envato->display_message( __( 'Purchase Code Verified!', 'inspiry' ) );
 
-            echo do_shortcode( '[sss_register_user]' );
+            echo do_shortcode( '[sss_register_user_form]' );
 
             if ( is_wp_error( $user_registered ) ) {
                 $envato->display_message( $user_registered );
@@ -350,6 +348,10 @@ class Simple_Support_System_Handler {
         } else {
             $envato->display_message( __( 'Login Required.', 'inspiry' ), true );
         }
+    }
+
+    public function sss_login_user_form() {
+        echo do_shortcode( '[sss_login_user_form]' );
     }
 
 }

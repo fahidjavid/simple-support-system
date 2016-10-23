@@ -172,12 +172,13 @@ class Simple_Support_System {
         $sss_shortcode = new Simple_Support_System_Shortcodes();
         add_shortcode( 'sss_verify_purchase_form', array( $sss_shortcode, 'sss_verify_purchase_form_shortcode') );
         add_shortcode( 'sss_register_user_form', array( $sss_shortcode, 'sss_register_user_form_shortcode') );
-        add_shortcode( 'sss_register_login_form', array( $sss_shortcode, 'sss_login_user_form_shortcode') );
+        add_shortcode( 'sss_login_user_form', array( $sss_shortcode, 'sss_login_user_form_shortcode') );
         add_shortcode( 'sss_create_ticket_form', array( $sss_shortcode, 'sss_create_ticket_form_shortcode') );
 
         $sss_handler = new Simple_Support_System_Handler();
         add_shortcode( 'sss_verify_purchase', array( $sss_handler, 'sss_verify_purchase_form') );
         add_shortcode( 'sss_register_user', array( $sss_handler, 'sss_register_user_form') );
+        add_shortcode( 'sss_login_user', array( $sss_handler, 'sss_login_user_form') );
         add_shortcode( 'sss_create_ticket', array( $sss_handler, 'sss_create_ticket_form') );
         add_shortcode( 'sss_list_purchases', array( $sss_handler, 'list_user_purchases') );
 
