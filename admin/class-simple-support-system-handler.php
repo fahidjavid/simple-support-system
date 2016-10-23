@@ -12,11 +12,11 @@
 class Simple_Support_System_Handler {
 
     /**
-     * Add verify purchased code form.
+     * Verify user purchase code and register
      *
      * @since    1.0.0
      */
-    public function sss_verify_purchase_form() {
+    public function sss_register_verified_user_form() {
 
         ob_start();
 
@@ -80,33 +80,25 @@ class Simple_Support_System_Handler {
             if( ! is_wp_error( $purchase_verify ) && $purchase_verify == true) {
 
                 if( ! is_wp_error( $user_registered ) && $user_registered == true ) {
-                    ?>
-                    <div class="col-md-12">
-                        <?php
-                        $envato->display_message( __( 'Registration has been completed! Please login to get support.', 'inspiry' ) );
-                        echo do_shortcode( '[sss_login_user_form]' );
-                        ?>
-                    </div>
-                    <?php
+
+                    $envato->display_message( __( 'Registration has been completed! Please login to get support.', 'inspiry' ) );
+
                 } else {
 
-                    echo '<div class="col-md-6">';
-                    echo '<div class="form-after-purchase">';
                     $envato->display_message( __( 'Purchase Code Verified!', 'inspiry' ) );
 
                     ?>
                     <h2><?php _e('Register.', 'inspiry'); ?></h2>
                     <form method="post" id="register-user-form" class="register-user-form sss-form">
-                        <label for="username"><?php _e('Username', 'inspiry'); ?></label>
-                        <input type="text" name="username"
-                               value="<?php echo (isset($_POST['username'])) ? esc_attr($_POST['username']) : ''; ?>"/>
+                        <p>
+                            <label for="username"><?php _e('Username', 'inspiry'); ?></label>
+                            <input type="text" name="username" value="<?php echo (isset($_POST['username'])) ? esc_attr($_POST['username']) : ''; ?>"/>
+                        </p>
                         <label for="email"><?php _e('Email', 'inspiry'); ?></label>
-                        <input type="email" name="email"
-                               value="<?php echo (isset($_POST['email'])) ? esc_attr($_POST['email']) : ''; ?>"/>
+                        <input type="email" name="email" value="<?php echo (isset($_POST['email'])) ? esc_attr($_POST['email']) : ''; ?>"/>
                         <label for="password"><?php _e('Password', 'inspiry'); ?></label>
                         <input type="password" name="password"/><br>
-                        <input type="hidden" name="purchase_code"
-                               value="<?php echo (isset($_POST['purchase_code'])) ? esc_attr($_POST['purchase_code']) : ''; ?>">
+                        <input type="hidden" name="purchase_code" value="<?php echo (isset($_POST['purchase_code'])) ? esc_attr($_POST['purchase_code']) : ''; ?>">
                         <input type="submit" value="Register">
                     </form>
                     <?php
@@ -114,28 +106,26 @@ class Simple_Support_System_Handler {
                     if ( is_wp_error( $user_registered ) ) {
                         $envato->display_message( $user_registered );
                     }
-                    echo '</div>';
-                    echo '</div>';
                 }
 
             } else {
 
-                echo '<div class="col-md-6">';
-                echo '<div class="wrapper-register-form">';
                 ?>
                 <h2><?php esc_html_e('Verify Item Purchase Code.', 'inspiry'); ?></h2>
                 <form method="post" id="verify-purchase-form" class="verify-purchase-form sss-form">
-                    <p><?php _e('Enter your <a href="http://support.inspirythemes.com/knowledgebase/how-to-get-themeforest-item-purchase-code/" target="_blank">item purchase code</a> and verify.', 'inspiry') ?></p>
-                    <input type="text" name="purchase_code"/>
-                    <input type="submit" value="Verify">
+                    <p>
+                        <label for=""><?php _e('Enter your <a href="http://support.inspirythemes.com/knowledgebase/how-to-get-themeforest-item-purchase-code/" target="_blank">item purchase code</a> and verify.', 'inspiry') ?></label>
+                        <input type="text" name="purchase_code"/>
+                    </p>
+                    <p>
+                        <input type="submit" value="Verify">
+                    </p>
                 </form>
                 <?php
 
                 if ( is_wp_error( $purchase_verify ) ) {
                     $envato->display_message( $purchase_verify );
                 }
-                echo '</div>';
-                echo '</div>';
 
             }
 
@@ -149,7 +139,7 @@ class Simple_Support_System_Handler {
     }
 
     /**
-     * Add verify purchased code form.
+     * User registration form
      *
      * @since    1.0.0
      */
@@ -197,32 +187,44 @@ class Simple_Support_System_Handler {
         }
 
         if( ! is_wp_error( $user_registered ) && $user_registered == true ) {
-            ?>
-            <div class="col-md-12">
-                <?php
-                $envato->display_message( __( 'Registration has been completed! Please login to get support.', 'inspiry' ) );
-                echo do_shortcode( '[sss_login_user_form]' );
-                ?>
-            </div>
-            <?php
+
+            $envato->display_message( __( 'Registration has been completed! Please login to get support.', 'inspiry' ) );
+
         } else {
-
-            echo '<div class="col-md-6">';
-            echo '<div class="form-after-purchase">';
-//            $envato->display_message( __( 'Purchase Code Verified!', 'inspiry' ) );
-
-            echo do_shortcode( '[sss_register_user_form]' );
+            ?>
+            <h2><?php _e('Register.', 'inspiry'); ?></h2>
+            <form method="post" id="register-user-form" class="register-user-form sss-form">
+                <p>
+                    <label for="username"><?php _e('Username', 'inspiry'); ?></label>
+                    <input type="text" name="username" value="<?php echo (isset($_POST['username'])) ? esc_attr($_POST['username']) : ''; ?>"/>
+                </p>
+                <p>
+                    <label for="email"><?php _e('Email', 'inspiry'); ?></label>
+                    <input type="email" name="email" value="<?php echo (isset($_POST['email'])) ? esc_attr($_POST['email']) : ''; ?>"/>
+                </p>
+                <p>
+                    <label for="password"><?php _e('Password', 'inspiry'); ?></label>
+                    <input type="password" name="password"/><br>
+                </p>
+                <p>
+                    <input type="submit" value="Register">
+                </p>
+            </form>
+            <?php
 
             if ( is_wp_error( $user_registered ) ) {
                 $envato->display_message( $user_registered );
             }
-            echo '</div>';
-            echo '</div>';
         }
 
         return ob_get_clean();
     }
 
+    /**
+     * User login form
+     *
+     * @since    1.0.0
+     */
     public function sss_login_user_form() {
         ob_start();
         ?>
@@ -243,7 +245,11 @@ class Simple_Support_System_Handler {
         return ob_get_clean();
     }
 
-
+    /**
+     * List user purchase codes and information
+     *
+     * @since    1.0.0
+     */
     public function list_user_purchases() {
 
         $envato = new Inspiry_Envato_API_Wrapper();
@@ -290,7 +296,7 @@ class Simple_Support_System_Handler {
     }
 
     /**
-     * Add verify purchased code form.
+     * Create ticket form
      *
      * @since    1.0.0
      */

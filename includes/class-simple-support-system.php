@@ -170,12 +170,11 @@ class Simple_Support_System {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
         $sss_handler = new Simple_Support_System_Handler();
-        add_shortcode( 'sss_verify_purchase', array( $sss_handler, 'sss_verify_purchase_form') );
+        add_shortcode( 'sss_register_verified_user', array( $sss_handler, 'sss_register_verified_user_form') );
         add_shortcode( 'sss_register_user', array( $sss_handler, 'sss_register_user_form') );
         add_shortcode( 'sss_login_user', array( $sss_handler, 'sss_login_user_form') );
         add_shortcode( 'sss_create_ticket', array( $sss_handler, 'sss_create_ticket_form') );
         add_shortcode( 'sss_list_purchases', array( $sss_handler, 'list_user_purchases') );
-
 
     }
 
