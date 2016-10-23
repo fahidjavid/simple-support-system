@@ -179,6 +179,7 @@ class Simple_Support_System {
         add_shortcode( 'sss_verify_purchase', array( $sss_handler, 'sss_verify_purchase_form') );
         add_shortcode( 'sss_register_user', array( $sss_handler, 'sss_register_user_form') );
         add_shortcode( 'sss_create_ticket', array( $sss_handler, 'sss_create_ticket_form') );
+        add_shortcode( 'sss_list_purchases', array( $sss_handler, 'list_user_purchases') );
 
 
     }
