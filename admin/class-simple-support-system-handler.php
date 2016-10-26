@@ -85,47 +85,54 @@ class Simple_Support_System_Handler {
 
                 } else {
 
-                    $envato->display_message( esc_html__( 'Purchase Code Verified!', 'simple-support-system' ) );
+                    $envato->display_message( esc_html__( 'Purchase Code Verified! Please register below.', 'simple-support-system' ) );
 
                     ?>
-                    <h2><?php _e('Register.', 'inspiry'); ?></h2>
-                    <form method="post" id="register-user-form" class="register-user-form sss-form">
-                        <p>
-                            <label for="username"><?php _e('Username', 'inspiry'); ?></label>
-                            <input type="text" name="username" value="<?php echo (isset($_POST['username'])) ? esc_attr($_POST['username']) : ''; ?>"/>
-                        </p>
-                        <label for="email"><?php _e('Email', 'inspiry'); ?></label>
-                        <input type="email" name="email" value="<?php echo (isset($_POST['email'])) ? esc_attr($_POST['email']) : ''; ?>"/>
-                        <label for="password"><?php _e('Password', 'inspiry'); ?></label>
-                        <input type="password" name="password"/><br>
-                        <input type="hidden" name="purchase_code" value="<?php echo (isset($_POST['purchase_code'])) ? esc_attr($_POST['purchase_code']) : ''; ?>">
-                        <input type="submit" value="Register">
-                    </form>
+                    <div class="sss-form-wrapper">
+                        <form method="post" id="register-user-form" class="register-user-form sss-form">
+                            <p>
+                                <label for="username"><?php _e('Username', 'inspiry'); ?></label>
+                                <input type="text" name="username" value="<?php echo (isset($_POST['username'])) ? esc_attr($_POST['username']) : ''; ?>"/>
+                            </p>
+                            <p>
+                                <label for="email"><?php _e('Email', 'inspiry'); ?></label>
+                                <input type="email" name="email" value="<?php echo (isset($_POST['email'])) ? esc_attr($_POST['email']) : ''; ?>"/>
+                            </p>
+                            <p>
+                                <label for="password"><?php _e('Password', 'inspiry'); ?></label>
+                                <input type="password" name="password"/><br>
+                            </p>
+                            <input type="hidden" name="purchase_code" value="<?php echo (isset($_POST['purchase_code'])) ? esc_attr($_POST['purchase_code']) : ''; ?>">
+                            <input type="submit" value="Register">
+                        </form>
+                    </div>
                     <?php
 
-                    if ( is_wp_error( $user_registered ) ) {
-                        $envato->display_message( $user_registered );
-                    }
+                        if ( is_wp_error( $user_registered ) ) {
+                            $envato->display_message( $user_registered );
+                        }
                 }
 
             } else {
 
                 ?>
-                <h2><?php esc_html_e('Verify Item Purchase Code.', 'simple-support-system'); ?></h2>
-                <form method="post" id="verify-purchase-form" class="verify-purchase-form sss-form">
-                    <p>
-                        <label for=""><?php esc_html_e('Enter your item purchase code and verify.', 'simple-support-system') ?></label>
-                        <input type="text" name="purchase_code"/>
-                    </p>
-                    <p>
-                        <input type="submit" value="Verify">
-                    </p>
-                </form>
-                <?php
+                <div class="sss-form-wrapper">
+                    <form method="post" id="verify-purchase-form" class="verify-purchase-form sss-form">
+                        <p>
+                            <label for=""><?php esc_html_e('Enter your item purchase code and verify.', 'simple-support-system') ?></label>
+                            <input type="text" name="purchase_code"/>
+                        </p>
+                        <p>
+                            <input type="submit" value="Verify">
+                        </p>
+                    </form>
 
-                if ( is_wp_error( $purchase_verify ) ) {
-                    $envato->display_message( $purchase_verify );
-                }
+                </div>
+                    <?php
+
+                        if ( is_wp_error( $purchase_verify ) ) {
+                            $envato->display_message( $purchase_verify );
+                        }
 
             }
 
@@ -192,24 +199,26 @@ class Simple_Support_System_Handler {
 
         } else {
             ?>
-            <h2><?php _e('Register.', 'inspiry'); ?></h2>
-            <form method="post" id="register-user-form" class="register-user-form sss-form">
-                <p>
-                    <label for="username"><?php _e('Username', 'inspiry'); ?></label>
-                    <input type="text" name="username" value="<?php echo (isset($_POST['username'])) ? esc_attr($_POST['username']) : ''; ?>"/>
-                </p>
-                <p>
-                    <label for="email"><?php _e('Email', 'inspiry'); ?></label>
-                    <input type="email" name="email" value="<?php echo (isset($_POST['email'])) ? esc_attr($_POST['email']) : ''; ?>"/>
-                </p>
-                <p>
-                    <label for="password"><?php _e('Password', 'inspiry'); ?></label>
-                    <input type="password" name="password"/><br>
-                </p>
-                <p>
-                    <input type="submit" value="Register">
-                </p>
-            </form>
+            <div class="sss-form-wrapper">
+                <h2><?php _e('Register.', 'inspiry'); ?></h2>
+                <form method="post" id="register-user-form" class="register-user-form sss-form">
+                    <p>
+                        <label for="username"><?php _e('Username', 'inspiry'); ?></label>
+                        <input type="text" name="username" value="<?php echo (isset($_POST['username'])) ? esc_attr($_POST['username']) : ''; ?>"/>
+                    </p>
+                    <p>
+                        <label for="email"><?php _e('Email', 'inspiry'); ?></label>
+                        <input type="email" name="email" value="<?php echo (isset($_POST['email'])) ? esc_attr($_POST['email']) : ''; ?>"/>
+                    </p>
+                    <p>
+                        <label for="password"><?php _e('Password', 'inspiry'); ?></label>
+                        <input type="password" name="password"/><br>
+                    </p>
+                    <p>
+                        <input type="submit" value="Register">
+                    </p>
+                </form>
+            </div>
             <?php
 
             if ( is_wp_error( $user_registered ) ) {
@@ -228,12 +237,11 @@ class Simple_Support_System_Handler {
     public function sss_login_user_form() {
         ob_start();
         ?>
-        <div class="wrapper-login-form">
-            <h2><?php esc_html_e( 'Login.', 'inspiry' ); ?></h2>
+        <div class="sss-form-wrapper">
             <?php
             if ( ! is_user_logged_in() ) { // Display WordPress login form:
                 $args = array(
-//                    'redirect' => '',
+                    'redirect' => esc_url( home_url( '/' ) ),
                     'form_id' => 'login-login-form'
                 );
                 wp_login_form( $args );
@@ -275,13 +283,16 @@ class Simple_Support_System_Handler {
             $envato->list_user_purchases( $codes );
 
             ?>
-            <form method="post" id="add-purchase" class="support">
+            <div class="sss-form-wrapper">
+                <form method="post" id="add-purchase" class="sss-form">
+                    <p>
+                        <?php esc_html_e( 'Enter your new item purchase code.', 'inspiry' ) ?>
+                        <input type="text" name="purchase_code" value="<?php echo ( isset( $_POST['purchase_code'] ) ) ? $_POST['purchase_code'] : ''; ?>"/>
+                    </p>
+                    <input type="submit" value="<?php _e( 'Add','inspiry' ); ?>">
 
-                <p><?php _e( 'Enter your new item purchase code', 'inspiry' ) ?></p>
-                <input type="text" name="purchase_code" value="<?php echo ( isset( $_POST['purchase_code'] ) ) ? $_POST['purchase_code'] : ''; ?>"/>
-                <input type="submit" value="<?php _e( 'Add','inspiry' ); ?>">
-
-            </form>
+                </form>
+            </div>
             <?php
 
             if ( is_wp_error( $add_purchase ) ) {
@@ -291,7 +302,7 @@ class Simple_Support_System_Handler {
             }
 
         } else {
-            $envato->display_message( __( 'Login Required.', 'simple-support-system' ), true );
+            echo '<p>'. esc_html__( 'Login required to view user Purchases.', 'simple-support-system' ) .'</p>';
         }
     }
 
@@ -332,54 +343,55 @@ class Simple_Support_System_Handler {
         } else {
 
             ?>
+            <div class="sss-form-wrapper">
+                <form method="post" id="submit-ticket" class="support">
+                    <?php
 
-            <form method="post" id="submit-ticket" class="support">
-                <?php
+                    $codes = get_user_meta( $user_id, 'item_purchase_code' );
 
-                $codes = get_user_meta( $user_id, 'item_purchase_code' );
+                    if( ! empty( $codes ) ) {
 
-                if( ! empty( $codes ) ) {
+                        echo '<h2>'. esc_html__( 'Select a theme:', 'simple-support-system' ) .'</h2>';
 
-                    echo '<h2>'. esc_html__( 'Select a theme:', 'simple-support-system' ) .'</h2>';
+                        foreach ( $codes as $code ) {
 
-                    foreach ( $codes as $code ) {
+                            $purchase_info = $envato->verify_purchase( $code, true );
 
-                        $purchase_info = $envato->verify_purchase( $code, true );
+                            if( ! is_wp_error( $purchase_info ) ) {
 
-                        if( ! is_wp_error( $purchase_info ) ) {
+                                $today = new DateTime( 'now' );
+                                $support_util = new DateTime( $purchase_info['supported_until'] );
+                                $supported = '';
 
-                            $today = new DateTime( 'now' );
-                            $support_util = new DateTime( $purchase_info['supported_until'] );
-                            $supported = '';
-
-                            if ( $support_util < $today ) {
-                                $supported = 'disabled';
-                            }
-                            if ( ! empty( $purchase_info['item_name'] ) ) {
-                                ?>
-                                <label class="inspiry-select-theme">
-                                    <?php
-                                    echo '<input class="theme-select-radio" type="radio" name="theme" value="' . $purchase_info['item_name'] . '" ' . $supported . '><span class="' . $supported . '"">' . $purchase_info['item_name'] . '</span><br>';
+                                if ( $support_util < $today ) {
+                                    $supported = 'disabled';
+                                }
+                                if ( ! empty( $purchase_info['item_name'] ) ) {
                                     ?>
-                                </label>
-                                <br>
-                                <?php
+                                    <label class="inspiry-select-theme">
+                                        <?php
+                                        echo '<input class="theme-select-radio" type="radio" name="theme" value="' . $purchase_info['item_name'] . '" ' . $supported . '><span class="' . $supported . '"">' . $purchase_info['item_name'] . '</span><br>';
+                                        ?>
+                                    </label>
+                                    <br>
+                                    <?php
+                                }
                             }
                         }
+                        ?>
+                        <br>
+                        <h2><?php _e( 'Ask your question:', 'inspiry' ); ?></h2>
+                        <input type="text" name="title" value="<?php echo ( ! empty( $_POST['title'] )? $_POST['title'] : '' ) ?>" placeholder="Topic Title">
+                        <textarea name="message" cols="30" rows="10"><?php echo ( ! empty( $_POST['message'] )? $_POST['message'] : '' ) ?></textarea>
+                        <input type="submit" value="Submit">
+                        <?php
+                    } else {
+                        echo '<p class="non-pcode-user">'. esc_html__( 'Please enter an item purchase code on Your Purchases page, before you submit a ticket.', 'simple-support-system' ) . '</p>';
                     }
-                    ?>
-                    <br>
-                    <h2><?php _e( 'Ask your question:', 'inspiry' ); ?></h2>
-                    <input type="text" name="title" value="<?php echo ( ! empty( $_POST['title'] )? $_POST['title'] : '' ) ?>" placeholder="Topic Title">
-                    <textarea name="message" cols="30" rows="10"><?php echo ( ! empty( $_POST['message'] )? $_POST['message'] : '' ) ?></textarea>
-                    <input type="submit" value="Submit">
-                    <?php
-                } else {
-                    echo '<p class="non-pcode-user">'. esc_html__( 'Please enter an item purchase code on Your Purchases page, before you submit a ticket.', 'simple-support-system' ) . '</p>';
-                }
 
-                ?>
-            </form>
+                    ?>
+                </form>
+            </div>
             <?php
 
             if ( is_wp_error( $submit_ticket ) ) {
