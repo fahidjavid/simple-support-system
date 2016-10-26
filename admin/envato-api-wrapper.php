@@ -208,13 +208,13 @@ class Inspiry_Envato_API_Wrapper {
     public function display_message( $message, $error = false ) {
 
         if ( is_wp_error( $message ) ) {
-            echo '<ul class="error">';
+            echo '<ul class="sss-message error">';
             echo '<li>' . implode( '</li><li>', $message->get_error_messages() ) . '</li>';
             echo '</ul>';
         } else if( $error ) {
-            echo '<p class="error">'. $message .'</p>';
+            echo '<p class="sss-message error">'. $message .'</p>';
         } else {
-            echo '<p class="success">'. $message .'</p>';
+            echo '<p class="sss-message success">'. $message .'</p>';
         }
     }
 
@@ -284,16 +284,16 @@ class Inspiry_Envato_API_Wrapper {
                     $support_until_date = date_format( $support_until ,'j F Y' );
 
                     if ( $support_until < $today ) {
-                        $supported = 'expired';
+                        $supported = esc_html__( 'expired', 'simple-support-system' );
                     } else {
-                        $supported = 'valid';
+                        $supported = esc_html__( 'valid', 'simple-support-system' );
                     }
 
                     ?>
                     <div class="purchase-detail-wrapper <?php echo $supported; ?>">
                         <div class="purchase-detail-inner">
                             <div class="detail-tag-container">
-                                <span class="detail-tag">Purchase Code:</span>
+                                <span class="detail-tag"><?php esc_html_e( 'Purchase Code', 'simple-support-system' ); ?>:</span>
                             </div>
                             <div class="detail-container">
                                 <span class="purchase-detail"><?php echo $code; ?></span>
@@ -301,7 +301,7 @@ class Inspiry_Envato_API_Wrapper {
                         </div>
                         <div class="purchase-detail-inner">
                             <div class="detail-tag-container">
-                                <span class="detail-tag">Product:</span>
+                                <span class="detail-tag"><?php esc_html_e( 'Product', 'simple-support-system' ); ?>:</span>
                             </div>
                             <div class="detail-container">
                                 <span class="purchase-detail"><?php echo $purchase_info['item_name']; ?></span>
@@ -309,13 +309,13 @@ class Inspiry_Envato_API_Wrapper {
                         </div>
                         <div class="purchase-detail-inner">
                             <div class="detail-tag-container">
-                                <span class="detail-tag">Supported Until:</span>
+                                <span class="detail-tag"><?php esc_html_e( 'Supported Until', 'simple-support-system' ); ?>:</span>
                             </div>
                             <div class="detail-container">
                                 <span class="purchase-detail"><?php echo $support_until_date; ?></span>
                             </div>
                         </div>
-                        <span class="valid-tag"><?php echo $supported; ?> for support</span>
+                        <span class="valid-tag"><?php echo $supported . ' ' . esc_html__( 'for support', 'simple-support-system' ); ?></span>
                     </div>
                     <?php
                 }
