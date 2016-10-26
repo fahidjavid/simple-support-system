@@ -3,10 +3,120 @@
  * included in this file.
  */
 
-
-.error {
+.sss-form-wrapper {
+    margin-bottom: 20px;
+}
+.sss-form-wrapper label {
+    margin-bottom: 5px;
+    display: inline-block;
+}
+.sss-message.success {
+    color: green;
+}
+.sss-message.error {
     color: red;
 }
-.error li {
+.sss-message.error li {
     list-style: none;
+}
+
+.purchase-detail-wrapper {
+    border: 1px solid #6FBF2C;
+    padding: 10px 20px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.purchase-detail-wrapper .detail-tag-container {
+    min-width: 170px;
+    float: left;
+}
+
+.purchase-detail-wrapper .detail-container {
+    overflow: hidden;
+}
+
+.purchase-detail-wrapper .detail-tag {
+    font-weight: 700;
+    display: inline-block;
+    min-width: 170px;
+    font-size: 16px;
+}
+
+.purchase-detail-wrapper .purchase-detail {
+    font-size: 16px;
+}
+
+.purchase-detail-wrapper .purchase-detail-inner {
+    clear: both;
+    margin: 10px 0;
+}
+
+.purchase-detail-wrapper .valid-tag {
+    display: inline-block;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    color: #6FBF2C;
+    font-size: 16px;
+}
+
+.purchase-detail-wrapper .valid-tag::first-letter {
+    text-transform: capitalize;
+}
+
+.purchase-detail-wrapper.expired {
+    border-color: #d35a29;
+}
+
+.purchase-detail-wrapper.expired .valid-tag {
+    color: #d35a29;
+}
+
+/*** Create ticket ***/
+.sss-select-theme span {
+    vertical-align: middle;
+}
+.sss-select-theme span.disabled {
+    color: #c6c5bd;
+}
+.sss-select-theme input[type=radio] {
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/*** Tooltip ***/
+.sss-select-theme {
+    position: relative;
+}
+.sss-select-theme .tooltiptext {
+    width: 50%;
+    background-color: #6d6d6d;
+    color: #fff;
+    text-align: center;
+    padding: 6px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 110%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 1s;
+    font-size: 15px;
+}
+
+.sss-select-theme .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #6d6d6d transparent transparent transparent;
+}
+
+.sss-select-theme:hover .tooltiptext {
+    opacity: 1;
 }
