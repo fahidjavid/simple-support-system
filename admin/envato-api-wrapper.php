@@ -339,7 +339,7 @@ class Inspiry_Envato_API_Wrapper {
         if( isset( $_POST['title'] ) ) {
 
             if ( empty($_POST['theme'] ) ) {
-                $error->add( 'error', __('No theme is selected to ask question about!', 'inspiry' ) );
+                $error->add( 'error', __('No item is selected to ask question about!', 'inspiry' ) );
             }
 
             if ( empty( $_POST['title'] ) ) {

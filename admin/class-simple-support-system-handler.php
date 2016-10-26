@@ -138,7 +138,7 @@ class Simple_Support_System_Handler {
 
         } else {
 
-            $envato->display_message( "You are already logged in!" );
+            $envato->display_message( "You are logged in already!" );
 
         }
 
@@ -239,14 +239,25 @@ class Simple_Support_System_Handler {
         ?>
         <div class="sss-form-wrapper">
             <?php
-            if ( ! is_user_logged_in() ) { // Display WordPress login form:
-                $args = array(
-                    'redirect' => esc_url( home_url( '/' ) ),
-                    'form_id' => 'login-login-form'
-                );
-                wp_login_form( $args );
-            }
-            echo '<a class="inspiry-lostpassword" href="'. wp_lostpassword_url() .'">Forgot Password?</a>';
+                if ( ! is_user_logged_in() ) { // Display WordPress login form:
+                    $args = array(
+                        'redirect' => esc_url( home_url( '/' ) ),
+                        'form_id' => 'login-login-form'
+                    );
+                    wp_login_form( $args );
+                    echo '<a class="sss-lostpassword" href="'. wp_lostpassword_url() .'">Forgot Password?</a>';
+                } else {
+
+                    $envato = new Inspiry_Envato_API_Wrapper();
+
+                    $envato_token = get_theme_mod( 'inspiry_envato_token' );
+                    $mailbox = get_theme_mod( 'inspiry_mailbox_address' );
+
+                    $envato->set_envato_token( $envato_token );
+                    $envato->set_mailbox_address( $mailbox );
+
+                    $envato->display_message( "You are logged in already!" );
+                }
             ?>
         </div>
         <?php
@@ -342,60 +353,71 @@ class Simple_Support_System_Handler {
 
         } else {
 
-            ?>
-            <div class="sss-form-wrapper">
-                <form method="post" id="submit-ticket" class="support">
-                    <?php
+            if ( is_user_logged_in() ) {
+                ?>
+                <div class="sss-form-wrapper">
+                    <form method="post" id="submit-ticket" class="support">
+                        <?php
 
-                    $codes = get_user_meta( $user_id, 'item_purchase_code' );
+                        $codes = get_user_meta( $user_id, 'item_purchase_code' );
 
-                    if( ! empty( $codes ) ) {
+                        if( ! empty( $codes ) ) {
 
-                        echo '<h2>'. esc_html__( 'Select a theme:', 'simple-support-system' ) .'</h2>';
+                            echo '<h4>'. esc_html__( 'Select an item:', 'simple-support-system' ) .'</h4>';
 
-                        foreach ( $codes as $code ) {
+                            foreach ( $codes as $code ) {
 
-                            $purchase_info = $envato->verify_purchase( $code, true );
+                                $purchase_info = $envato->verify_purchase( $code, true );
 
-                            if( ! is_wp_error( $purchase_info ) ) {
+                                if( ! is_wp_error( $purchase_info ) ) {
 
-                                $today = new DateTime( 'now' );
-                                $support_util = new DateTime( $purchase_info['supported_until'] );
-                                $supported = '';
+                                    $today = new DateTime( 'now' );
+                                    $support_util = new DateTime( $purchase_info['supported_until'] );
+                                    $supported = '';
 
-                                if ( $support_util < $today ) {
-                                    $supported = 'disabled';
-                                }
-                                if ( ! empty( $purchase_info['item_name'] ) ) {
-                                    ?>
-                                    <label class="inspiry-select-theme">
-                                        <?php
-                                        echo '<input class="theme-select-radio" type="radio" name="theme" value="' . $purchase_info['item_name'] . '" ' . $supported . '><span class="' . $supported . '"">' . $purchase_info['item_name'] . '</span><br>';
+                                    if ( $support_util < $today ) {
+                                        $supported = 'disabled';
+                                    }
+                                    if ( ! empty( $purchase_info['item_name'] ) ) {
                                         ?>
-                                    </label>
-                                    <br>
-                                    <?php
+                                        <label class="sss-select-theme">
+                                            <?php
+                                                echo '<input class="theme-select-radio" type="radio" name="theme" value="' . $purchase_info['item_name'] . '" ' . $supported . '><span class="' . $supported . '"">' . $purchase_info['item_name'] . '</span><br>';
+                                                if( $supported == 'disabled' ) {
+                                                    echo '<span class="tooltiptext">This item support period has been expired.</span>';
+                                                }
+                                            ?>
+                                        </label>
+                                        <br>
+                                        <?php
+                                    }
                                 }
                             }
+                            ?>
+                            <h4><?php _e( 'Ask your question:', 'inspiry' ); ?></h4>
+                            <p>
+                                <input type="text" name="title" value="<?php echo ( ! empty( $_POST['title'] )? $_POST['title'] : '' ) ?>" placeholder="Topic Title">
+                            </p>
+                            <p>
+                                <textarea name="message" cols="30" rows="10"><?php echo ( ! empty( $_POST['message'] )? $_POST['message'] : '' ) ?></textarea>
+                            </p>
+                            <input type="submit" value="Submit">
+                            <?php
+                        } else {
+                            echo '<p class="non-pcode-user">'. esc_html__( 'Please enter an item purchase code on Your Purchases page, before you submit a ticket.', 'simple-support-system' ) . '</p>';
                         }
+
                         ?>
-                        <br>
-                        <h2><?php _e( 'Ask your question:', 'inspiry' ); ?></h2>
-                        <input type="text" name="title" value="<?php echo ( ! empty( $_POST['title'] )? $_POST['title'] : '' ) ?>" placeholder="Topic Title">
-                        <textarea name="message" cols="30" rows="10"><?php echo ( ! empty( $_POST['message'] )? $_POST['message'] : '' ) ?></textarea>
-                        <input type="submit" value="Submit">
-                        <?php
-                    } else {
-                        echo '<p class="non-pcode-user">'. esc_html__( 'Please enter an item purchase code on Your Purchases page, before you submit a ticket.', 'simple-support-system' ) . '</p>';
-                    }
+                    </form>
+                </div>
+                <?php
 
-                    ?>
-                </form>
-            </div>
-            <?php
+                if ( is_wp_error( $submit_ticket ) ) {
+                    $envato->display_message( $submit_ticket );
+                }
 
-            if ( is_wp_error( $submit_ticket ) ) {
-                $envato->display_message( $submit_ticket );
+            } else {
+                echo '<p>'. esc_html__( 'Login required to create a ticket.', 'simple-support-system' ) .'</p>';
             }
         }
         return ob_get_clean();
