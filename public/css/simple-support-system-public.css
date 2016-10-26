@@ -2,3 +2,11 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+
+
+.error {
+    color: red;
+}
+.error li {
+    list-style: none;
+}

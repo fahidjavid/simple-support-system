@@ -81,11 +81,11 @@ class Simple_Support_System_Handler {
 
                 if( ! is_wp_error( $user_registered ) && $user_registered == true ) {
 
-                    $envato->display_message( __( 'Registration has been completed! Please login to get support.', 'inspiry' ) );
+                    $envato->display_message( esc_html__( 'Registration has been completed! Please login to get support.', 'simple-support-system' ) );
 
                 } else {
 
-                    $envato->display_message( __( 'Purchase Code Verified!', 'inspiry' ) );
+                    $envato->display_message( esc_html__( 'Purchase Code Verified!', 'simple-support-system' ) );
 
                     ?>
                     <h2><?php _e('Register.', 'inspiry'); ?></h2>
@@ -111,10 +111,10 @@ class Simple_Support_System_Handler {
             } else {
 
                 ?>
-                <h2><?php esc_html_e('Verify Item Purchase Code.', 'inspiry'); ?></h2>
+                <h2><?php esc_html_e('Verify Item Purchase Code.', 'simple-support-system'); ?></h2>
                 <form method="post" id="verify-purchase-form" class="verify-purchase-form sss-form">
                     <p>
-                        <label for=""><?php _e('Enter your <a href="http://support.inspirythemes.com/knowledgebase/how-to-get-themeforest-item-purchase-code/" target="_blank">item purchase code</a> and verify.', 'inspiry') ?></label>
+                        <label for=""><?php esc_html_e('Enter your item purchase code and verify.', 'simple-support-system') ?></label>
                         <input type="text" name="purchase_code"/>
                     </p>
                     <p>
@@ -188,7 +188,7 @@ class Simple_Support_System_Handler {
 
         if( ! is_wp_error( $user_registered ) && $user_registered == true ) {
 
-            $envato->display_message( __( 'Registration has been completed! Please login to get support.', 'inspiry' ) );
+            $envato->display_message( __( 'Registration has been completed! Please login to get support.', 'simple-support-system' ) );
 
         } else {
             ?>
@@ -287,11 +287,11 @@ class Simple_Support_System_Handler {
             if ( is_wp_error( $add_purchase ) ) {
                 $envato->display_message( $add_purchase->get_error_messages()[0], true );
             } else if ( $add_purchase ) {
-                $envato->display_message( __( 'Your new item purchase code has been added.', 'inspiry' ) );
+                $envato->display_message( __( 'Your new item purchase code has been added.', 'simple-support-system' ) );
             }
 
         } else {
-            $envato->display_message( __( 'Login Required.', 'inspiry' ), true );
+            $envato->display_message( __( 'Login Required.', 'simple-support-system' ), true );
         }
     }
 
@@ -324,8 +324,7 @@ class Simple_Support_System_Handler {
             <div class="after-ticket-box">
                 <?php
 
-                echo '<p class="text-after-submit">'. __( 'Your Ticket Has Been Submitted Successfully!', 'inspiry') .'</p>';
-                echo '<p class="text-check-email">'. __( 'Please check your email for more details.', 'inspiry') .'</p>';
+                echo '<p class="text-after-submit">'. esc_html__( 'Your Ticket Has Been Submitted Successfully!', 'simple-support-system') .'</p>';
                 ?>
             </div>
             <?php
@@ -341,7 +340,7 @@ class Simple_Support_System_Handler {
 
                 if( ! empty( $codes ) ) {
 
-                    echo '<h2>'. __( 'Select a theme:', 'inspiry' ) .'</h2>';
+                    echo '<h2>'. esc_html__( 'Select a theme:', 'simple-support-system' ) .'</h2>';
 
                     foreach ( $codes as $code ) {
 
@@ -376,7 +375,7 @@ class Simple_Support_System_Handler {
                     <input type="submit" value="Submit">
                     <?php
                 } else {
-                    echo '<p class="non-pcode-user">'. __( 'Please enter your item purchase code on <a href="/your-purchases">Your Purchases</a> page, before you submit a ticket.', 'inspiry' ) . '</p>';
+                    echo '<p class="non-pcode-user">'. esc_html__( 'Please enter an item purchase code on Your Purchases page, before you submit a ticket.', 'simple-support-system' ) . '</p>';
                 }
 
                 ?>
