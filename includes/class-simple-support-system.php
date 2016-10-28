@@ -119,14 +119,14 @@ class Simple_Support_System {
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/envato-api-wrapper.php';
 
         /**
-         * The class responsible for adding all the plugin shortcodes
-         */
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-simple-support-system-shortcodes.php';
-
-        /**
          * The class responsible for handling all the plugin forms
          */
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-simple-support-system-handler.php';
+
+        /**
+         * The class responsible for providing plugin options
+         */
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-simple-support-system-options.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
@@ -171,7 +171,6 @@ class Simple_Support_System {
 
         $sss_handler = new Simple_Support_System_Handler();
         add_shortcode( 'sss_register_verified_user', array( $sss_handler, 'sss_register_verified_user_form') );
-        add_shortcode( 'sss_register_user', array( $sss_handler, 'sss_register_user_form') );
         add_shortcode( 'sss_login_user', array( $sss_handler, 'sss_login_user_form') );
         add_shortcode( 'sss_create_ticket', array( $sss_handler, 'sss_create_ticket_form') );
         add_shortcode( 'sss_list_purchases', array( $sss_handler, 'list_user_purchases') );

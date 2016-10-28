@@ -4,9 +4,9 @@
  *
  * An PHP class to interact with the Envato Marketplace API
  *
- * @author	    Inspiry Themes
+ * @author	    Fahid Javid
  * @copyright	Copyright (c) 2016
- * @link		http://inspirythemes.com
+ * @link		https://fahidjavid.com
  */
 
 /**
