@@ -238,27 +238,29 @@ class Simple_Support_System_Handler {
         ob_start();
         ?>
         <div class="sss-form-wrapper">
-            <?php
-                if ( ! is_user_logged_in() ) { // Display WordPress login form:
-                    $args = array(
-                        'redirect' => esc_url( home_url( '/' ) ),
-                        'form_id' => 'login-login-form'
-                    );
-                    wp_login_form( $args );
-                    echo '<a class="sss-lostpassword" href="'. wp_lostpassword_url() .'">Forgot Password?</a>';
-                } else {
+            <div class="sss-form">
+                <?php
+                    if ( ! is_user_logged_in() ) { // Display WordPress login form:
+                        $args = array(
+                            'redirect' => esc_url( home_url( '/' ) ),
+                            'form_id' => 'login-login-form'
+                        );
+                        wp_login_form( $args );
+                        echo '<a class="sss-lostpassword" href="'. wp_lostpassword_url() .'">Forgot Password?</a>';
+                    } else {
 
-                    $envato = new Inspiry_Envato_API_Wrapper();
+                        $envato = new Inspiry_Envato_API_Wrapper();
 
-                    $envato_token = get_theme_mod( 'inspiry_envato_token' );
-                    $mailbox = get_theme_mod( 'inspiry_mailbox_address' );
+                        $envato_token = get_theme_mod( 'inspiry_envato_token' );
+                        $mailbox = get_theme_mod( 'inspiry_mailbox_address' );
 
-                    $envato->set_envato_token( $envato_token );
-                    $envato->set_mailbox_address( $mailbox );
+                        $envato->set_envato_token( $envato_token );
+                        $envato->set_mailbox_address( $mailbox );
 
-                    $envato->display_message( "You are logged in already!" );
-                }
-            ?>
+                        $envato->display_message( "You are logged in already!" );
+                    }
+                ?>
+            </div>
         </div>
         <?php
         return ob_get_clean();
@@ -356,7 +358,7 @@ class Simple_Support_System_Handler {
             if ( is_user_logged_in() ) {
                 ?>
                 <div class="sss-form-wrapper">
-                    <form method="post" id="submit-ticket" class="support">
+                    <form method="post" id="submit-ticket" class="sss-form">
                         <?php
 
                         $codes = get_user_meta( $user_id, 'item_purchase_code' );
