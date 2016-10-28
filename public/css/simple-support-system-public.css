@@ -3,6 +3,12 @@
  * included in this file.
  */
 
+.sss-form input[type=text],
+.sss-form input[type=password],
+.sss-form textarea {
+    width: 100%;
+}
+
 .sss-form-wrapper {
     margin-bottom: 20px;
 }
