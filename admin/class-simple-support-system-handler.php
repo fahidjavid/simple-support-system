@@ -20,13 +20,7 @@ class Simple_Support_System_Handler {
 
         ob_start();
 
-        $envato = new Inspiry_Envato_API_Wrapper();
-
-        $envato_token = get_theme_mod( 'inspiry_envato_token' );
-        $mailbox = get_theme_mod( 'inspiry_mailbox_address' );
-
-        $envato->set_envato_token( $envato_token );
-        $envato->set_mailbox_address( $mailbox );
+        $envato = new SSS_Envato_API_Wrapper();
 
         if( ! is_user_logged_in() ) {
 
@@ -138,7 +132,7 @@ class Simple_Support_System_Handler {
 
         } else {
 
-            $envato->display_message( "You are logged in already!" );
+            echo '<h5>'. esc_html__( 'You are logged in already!', 'simple-support-system' ) .'</h5>';
 
         }
 
@@ -156,13 +150,7 @@ class Simple_Support_System_Handler {
 
         $user_registered = false;
 
-        $envato = new Inspiry_Envato_API_Wrapper();
-
-        $envato_token = get_theme_mod( 'inspiry_envato_token' );
-        $mailbox = get_theme_mod( 'inspiry_mailbox_address' );
-
-        $envato->set_envato_token( $envato_token );
-        $envato->set_mailbox_address( $mailbox );
+        $envato = new SSS_Envato_API_Wrapper();
 
         if( isset( $_POST['username'] ) ) {
 
@@ -248,16 +236,7 @@ class Simple_Support_System_Handler {
                         wp_login_form( $args );
                         echo '<a class="sss-lostpassword" href="'. wp_lostpassword_url() .'">Forgot Password?</a>';
                     } else {
-
-                        $envato = new Inspiry_Envato_API_Wrapper();
-
-                        $envato_token = get_theme_mod( 'inspiry_envato_token' );
-                        $mailbox = get_theme_mod( 'inspiry_mailbox_address' );
-
-                        $envato->set_envato_token( $envato_token );
-                        $envato->set_mailbox_address( $mailbox );
-
-                        $envato->display_message( "You are logged in already!" );
+                        echo '<h5>'. esc_html__( 'You are logged in already!', 'simple-support-system' ) .'</h5>';
                     }
                 ?>
             </div>
@@ -273,13 +252,7 @@ class Simple_Support_System_Handler {
      */
     public function list_user_purchases() {
 
-        $envato = new Inspiry_Envato_API_Wrapper();
-
-        $envato_token = get_theme_mod( 'inspiry_envato_token' );
-        $mailbox = get_theme_mod( 'inspiry_mailbox_address' );
-
-        $envato->set_envato_token( $envato_token );
-        $envato->set_mailbox_address( $mailbox );
+        $envato = new SSS_Envato_API_Wrapper();
 
         if( is_user_logged_in() ) {
 
@@ -328,15 +301,7 @@ class Simple_Support_System_Handler {
 
         ob_start();
 
-        $ticket_submit = false;
-
-        $envato = new Inspiry_Envato_API_Wrapper();
-
-        $envato_token = get_theme_mod( 'inspiry_envato_token' );
-        $mailbox = get_theme_mod( 'inspiry_mailbox_address' );
-
-        $envato->set_envato_token( $envato_token );
-        $envato->set_mailbox_address( $mailbox );
+        $envato = new SSS_Envato_API_Wrapper();
 
         $current_user = wp_get_current_user();
         $user_id = $current_user->ID;
