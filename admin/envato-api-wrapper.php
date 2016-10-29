@@ -10,7 +10,7 @@
  */
 
 /**
- * Inspiry_Envato_API_Wrapper
+ * SSS_Envato_API_Wrapper
  *
  * Create our new class called "SSS_Envato_API_Wrapper"
  */
@@ -28,6 +28,7 @@ class SSS_Envato_API_Wrapper {
 
 
     function __construct() {
+
         $this->envato_token = get_theme_mod( 'inspiry_envato_token' );
         $this->mailbox = get_theme_mod( 'inspiry_mailbox_address' );
     }
@@ -39,14 +40,14 @@ class SSS_Envato_API_Wrapper {
      *
      * @access	public
      * @param	string bool
-     * @return	array bool
+     * @return	array | bool | string
      */
     public function verify_purchase( $code, $info = false ) {
 
         $error = new WP_Error();
 
         if( empty( $code ) ) {
-            $error->add( 'error', 'Please enter a purchase code.' );
+            $error->add( 'error', esc_html__( 'Please enter a purchase code.', 'simple-support-system' ) );
             return $error;
         }
 
@@ -60,23 +61,20 @@ class SSS_Envato_API_Wrapper {
             $body_array = (array) $purchases_body['verify-purchase']; // use json_decode
 
             if( isset( $body_array['item_id'] ) ) {
-
                 if ( $info == true) {
                     return $body_array;
                 }
                 return true;
-
             } else {
-                $error->add( 'error', 'Please enter a valid purchase code.' );
+                $error->add( 'error', esc_html__( 'Please enter a valid purchase code.', 'simple-support-system' ) );
                 return $error;
             }
 
         } else {
-            $error->add( 'error', 'Problem in connecting.' );
+            $error->add( 'error', esc_html__( 'Problem in connecting.', 'simple-support-system' ) );
             return $error;
         }
     }
-
 
     /**
      * item_info()
@@ -85,7 +83,7 @@ class SSS_Envato_API_Wrapper {
      *
      * @access	public
      * @param	string
-     * @return	array bool
+     * @return	array | bool
      */
     public function item_info( $item_code ) {
 
@@ -108,7 +106,7 @@ class SSS_Envato_API_Wrapper {
      *
      * @access	public
      * @param	string
-     * @return	array bool
+     * @return	array | bool
      */
     public function user_info( $username ) {
 
@@ -131,20 +129,20 @@ class SSS_Envato_API_Wrapper {
      *
      * @access	public
      * @param	string array
-     * @return	bool
+     * @return	string
      */
     public function register_user( $code, $userdata ){
 
         $error = new WP_Error();
 
         if( empty( $userdata['user_login'] ) ) {
-            $error->add( 'error', __( 'Please enter a username.', 'simple-support-system') );
+            $error->add( 'error', esc_html__( 'Please enter a username.', 'simple-support-system' ) );
         }
         if( empty( $userdata['user_email'] ) || ! is_email( $userdata['user_email'] ) ) {
-            $error->add( 'error', __( 'Please enter a valid email.', 'simple-support-system') );
+            $error->add( 'error', esc_html__( 'Please enter a valid email.', 'simple-support-system' ) );
         }
         if( empty( $userdata['user_pass'] ) ) {
-            $error->add( 'error', __( 'Please enter a password.', 'simple-support-system') );
+            $error->add( 'error', esc_html__( 'Please enter a password.', 'simple-support-system' ) );
         }
 
         if ( empty( $error->get_error_messages() ) ) {
@@ -170,7 +168,7 @@ class SSS_Envato_API_Wrapper {
      *
      * @access	public
      * @param	array
-     * @return	print
+     * @return	string
      */
     public function prettyPrint($data)
     {
@@ -186,7 +184,7 @@ class SSS_Envato_API_Wrapper {
      *
      * @access	public
      * @param	string
-     * @return	bool
+     * @return	string
      */
     public function item_purchase_code_exists( $item_purchase_code ) {
 
@@ -195,7 +193,7 @@ class SSS_Envato_API_Wrapper {
         $results = $wpdb->get_results( "SELECT * FROM $wpdb->usermeta WHERE meta_key = 'item_purchase_code' AND meta_value = '".$item_purchase_code."'" );
 
         if( isset( $results[0]->meta_value ) && ( $results[0]->meta_value == $item_purchase_code ) ) {
-            return new WP_Error( 'error', __( 'Purchase code already exists!', 'simple-support-system') );
+            return new WP_Error( 'error', esc_html__( 'Purchase code already exists.', 'simple-support-system') );
         } else {
             return false;
         }
@@ -231,8 +229,7 @@ class SSS_Envato_API_Wrapper {
      * @access	public
      * @param	int $user_id user id
      * @param	string $item_purchase_code item purchase code
-     * @return	bool true on success
-     * @return	array WP_Error on error reporting
+     * @return	bool | array
      */
     public function add_purchase_code( $user_id, $item_purchase_code ) {
 
@@ -240,7 +237,7 @@ class SSS_Envato_API_Wrapper {
         $error = new WP_Error();
 
         if( empty( $item_purchase_code ) ) {
-            $error->add( 'error', 'Please enter a purchase code.' );
+            $error->add( 'error', esc_html__( 'Please enter a purchase code.', 'simple-support-system' ) );
             return $error;
         }
 
@@ -248,12 +245,11 @@ class SSS_Envato_API_Wrapper {
 
         if( $purchase_code_exist ) {
 
-            $error->add( 'error', __( 'Purchase Code Already Exists!', 'simple-support-system') );
+            $error->add( 'error', esc_html__( 'Purchase Code Already Exists.', 'simple-support-system') );
 
         } else {
 
             $purchase = $this->verify_purchase( $item_purchase_code );
-
 
             if( is_wp_error( $purchase ) ) {
                 return $purchase;
@@ -335,7 +331,7 @@ class SSS_Envato_API_Wrapper {
      *
      * @access	public
      * @param	void
-     * @return	bool
+     * @return	bool | WP_Error
      */
     public function submit_ticket() {
 
@@ -344,15 +340,15 @@ class SSS_Envato_API_Wrapper {
         if( isset( $_POST['title'] ) ) {
 
             if ( empty($_POST['theme'] ) ) {
-                $error->add( 'error', __('No item is selected to ask question about!', 'simple-support-system') );
+                $error->add( 'error', esc_html__( 'No item is selected to ask question about.', 'simple-support-system' ) );
             }
 
             if ( empty( $_POST['title'] ) ) {
-                $error->add( 'error', __('You must enter a title for your question.', 'simple-support-system') );
+                $error->add( 'error', esc_html__( 'You must enter a title for your question.', 'simple-support-system' ) );
             }
 
             if ( empty( $_POST['message'] ) ) {
-                $error->add( 'error', __('Provide your question details.', 'simple-support-system') );
+                $error->add( 'error', esc_html__( 'Provide your question details.', 'simple-support-system' ) );
             }
 
             if ( empty( $error->get_error_messages() ) ) {
@@ -361,8 +357,9 @@ class SSS_Envato_API_Wrapper {
 
                 $to_email = $this->mailbox;
                 $to_email = is_email($to_email);
+
                 if ( ! $to_email ) {
-                    $error->add( 'error', __('Target Email address is not properly configured!', 'simple-support-system') );
+                    $error->add( 'error', esc_html__( 'Target Email address is not properly configured!', 'simple-support-system' ) );
                     return $error;
                 }
 
@@ -375,19 +372,20 @@ class SSS_Envato_API_Wrapper {
                 /*
                  * Email Subject
                  */
-                $email_subject = 'New ticket submitted by' . ' ' . $from_name . ' ' . 'using support form at' . ' ' . get_bloginfo( 'name' );
+                $email_subject = sprintf( esc_html__( 'New ticket submitted by %1$s using support form at %2$s', 'simple-support-system' ), $from_name, get_bloginfo( 'name' ) );
 
                 /*
                  * Email Body
                  */
-                $email_body = "You have received a ticket from: " . $from_name . " <br/><br/>";
+                $email_body = sprintf( esc_html__( 'You have received a ticket from: %s ', 'simple-support-system' ), $from_name ) . '<br/><br/>';
+
                 if ( ! empty( $title ) ) {
-                    $email_body .= "Title : " . $title . " <br/><br/>";
+                    $email_body .= esc_html__( 'Title', 'simple-support-system' ) .' : '. $title . " <br/><br/>";
                 }
                 if ( ! empty( $theme ) ) {
-                    $email_body .= "Theme : " . $theme . " <br/><br/>";
+                    $email_body .= esc_html__( 'Product', 'simple-support-system' ) .' : '. $theme . " <br/><br/>";
                 }
-                $email_body .= "Their question detail is as follows:" . " <br/>";
+                $email_body .= esc_html__( 'Their question detail is as follows:', 'simple-support-system' ) . ' <br/>';
                 $email_body .= wpautop( $message ) . " <br/>";
 
                 /*
@@ -401,7 +399,7 @@ class SSS_Envato_API_Wrapper {
                 if ( wp_mail( $to_email, $email_subject, $email_body, $headers ) ) {
                     return true;
                 } else {
-                    $error->add( 'error', __('Server Error: WordPress mail function failed!', 'simple-support-system') );
+                    $error->add( 'error', esc_html__( 'Server Error: WordPress mail function failed.', 'simple-support-system' ) );
                     return $error;
 
                 }
