@@ -67,7 +67,6 @@ class Simple_Support_System_Handler {
                         $purchase_verify = true;
                     }
 
-
                 }
             }
 
@@ -85,18 +84,18 @@ class Simple_Support_System_Handler {
                     <div class="sss-form-wrapper">
                         <form method="post" id="register-user-form" class="register-user-form sss-form">
                             <p>
-                                <label for="username"><?php _e('Username', 'inspiry'); ?></label>
-                                <input type="text" name="username" value="<?php echo (isset($_POST['username'])) ? esc_attr($_POST['username']) : ''; ?>"/>
+                                <label for="username"><?php esc_html_e( 'Username', 'simple-support-system' ); ?></label>
+                                <input type="text" name="username" value="<?php echo ( isset( $_POST['username'] ) ) ? esc_attr( $_POST['username'] ) : ''; ?>"/>
                             </p>
                             <p>
-                                <label for="email"><?php _e('Email', 'inspiry'); ?></label>
-                                <input type="email" name="email" value="<?php echo (isset($_POST['email'])) ? esc_attr($_POST['email']) : ''; ?>"/>
+                                <label for="email"><?php esc_html_e( 'Email', 'simple-support-system' ); ?></label>
+                                <input type="email" name="email" value="<?php echo ( isset( $_POST['email'] ) ) ? esc_attr( $_POST['email'] ) : ''; ?>"/>
                             </p>
                             <p>
-                                <label for="password"><?php _e('Password', 'inspiry'); ?></label>
+                                <label for="password"><?php esc_html_e( 'Password', 'simple-support-system' ); ?></label>
                                 <input type="password" name="password"/><br>
                             </p>
-                            <input type="hidden" name="purchase_code" value="<?php echo (isset($_POST['purchase_code'])) ? esc_attr($_POST['purchase_code']) : ''; ?>">
+                            <input type="hidden" name="purchase_code" value="<?php echo ( isset( $_POST['purchase_code'] ) ) ? esc_attr( $_POST['purchase_code'] ) : ''; ?>">
                             <input type="submit" value="Register">
                         </form>
                     </div>
@@ -113,21 +112,20 @@ class Simple_Support_System_Handler {
                 <div class="sss-form-wrapper">
                     <form method="post" id="verify-purchase-form" class="verify-purchase-form sss-form">
                         <p>
-                            <label for=""><?php esc_html_e('Enter your item purchase code and verify.', 'simple-support-system') ?></label>
+                            <label for=""><?php esc_html_e( 'Enter your item purchase code and verify.', 'simple-support-system' ) ?></label>
                             <input type="text" name="purchase_code"/>
                         </p>
                         <p>
-                            <input type="submit" value="Verify">
+                            <input type="submit" value="<?php esc_html_e( 'Verify', 'simple-support-system' ) ?>">
                         </p>
                     </form>
 
                 </div>
-                    <?php
+                <?php
 
-                        if ( is_wp_error( $purchase_verify ) ) {
-                            $envato->display_message( $purchase_verify );
-                        }
-
+                    if ( is_wp_error( $purchase_verify ) ) {
+                        $envato->display_message( $purchase_verify );
+                    }
             }
 
         } else {
@@ -183,27 +181,27 @@ class Simple_Support_System_Handler {
 
         if( ! is_wp_error( $user_registered ) && $user_registered == true ) {
 
-            $envato->display_message( __( 'Registration has been completed! Please login to get support.', 'simple-support-system' ) );
+            $envato->display_message( esc_html__( 'Registration has been completed! Please login to get support.', 'simple-support-system' ) );
 
         } else {
             ?>
             <div class="sss-form-wrapper">
-                <h2><?php _e('Register.', 'inspiry'); ?></h2>
+                <h2><?php esc_html_e( 'Register.', 'simple-support-system' ); ?></h2>
                 <form method="post" id="register-user-form" class="register-user-form sss-form">
                     <p>
-                        <label for="username"><?php _e('Username', 'inspiry'); ?></label>
-                        <input type="text" name="username" value="<?php echo (isset($_POST['username'])) ? esc_attr($_POST['username']) : ''; ?>"/>
+                        <label for="username"><?php esc_html_e( 'Username', 'simple-support-system' ); ?></label>
+                        <input type="text" name="username" value="<?php echo ( isset( $_POST['username'] ) ) ? esc_attr( $_POST['username'] ) : ''; ?>"/>
                     </p>
                     <p>
-                        <label for="email"><?php _e('Email', 'inspiry'); ?></label>
-                        <input type="email" name="email" value="<?php echo (isset($_POST['email'])) ? esc_attr($_POST['email']) : ''; ?>"/>
+                        <label for="email"><?php esc_html_e( 'Email', 'simple-support-system' ); ?></label>
+                        <input type="email" name="email" value="<?php echo ( isset( $_POST['email'] ) ) ? esc_attr( $_POST['email'] ) : ''; ?>"/>
                     </p>
                     <p>
-                        <label for="password"><?php _e('Password', 'inspiry'); ?></label>
+                        <label for="password"><?php esc_html_e( 'Password', 'simple-support-system' ); ?></label>
                         <input type="password" name="password"/><br>
                     </p>
                     <p>
-                        <input type="submit" value="Register">
+                        <input type="submit" value="<?php esc_html_e( 'Register', 'simple-support-system' ) ?>">
                     </p>
                 </form>
             </div>
@@ -234,7 +232,7 @@ class Simple_Support_System_Handler {
                             'form_id' => 'login-login-form'
                         );
                         wp_login_form( $args );
-                        echo '<a class="sss-lostpassword" href="'. wp_lostpassword_url() .'">Forgot Password?</a>';
+                        echo '<a class="sss-lostpassword" href="'. wp_lostpassword_url() .'">'. esc_html__( 'Forgot Password?', 'simple-support-system' ) . '</a>';
                     } else {
                         echo '<h5>'. esc_html__( 'You are logged in already!', 'simple-support-system' ) .'</h5>';
                     }
@@ -272,10 +270,10 @@ class Simple_Support_System_Handler {
             <div class="sss-form-wrapper">
                 <form method="post" id="add-purchase" class="sss-form">
                     <p>
-                        <?php esc_html_e( 'Enter your new item purchase code.', 'inspiry' ) ?>
+                        <?php esc_html_e( 'Enter your new item purchase code.', 'simple-support-system' ) ?>
                         <input type="text" name="purchase_code" value="<?php echo ( isset( $_POST['purchase_code'] ) ) ? $_POST['purchase_code'] : ''; ?>"/>
                     </p>
-                    <input type="submit" value="<?php _e( 'Add','inspiry' ); ?>">
+                    <input type="submit" value="<?php esc_html_e( 'Add', 'simple-support-system' ); ?>">
 
                 </form>
             </div>
@@ -351,7 +349,7 @@ class Simple_Support_System_Handler {
                                             <?php
                                                 echo '<input class="theme-select-radio" type="radio" name="theme" value="' . $purchase_info['item_name'] . '" ' . $supported . '><span class="' . $supported . '"">' . $purchase_info['item_name'] . '</span><br>';
                                                 if( $supported == 'disabled' ) {
-                                                    echo '<span class="tooltiptext">This item support period has been expired.</span>';
+                                                    echo '<span class="tooltiptext">'. esc_html__( 'This item support period has been expired.', 'simple-support-system' ) .'</span>';
                                                 }
                                             ?>
                                         </label>
@@ -361,14 +359,14 @@ class Simple_Support_System_Handler {
                                 }
                             }
                             ?>
-                            <h4><?php _e( 'Ask your question:', 'inspiry' ); ?></h4>
+                            <h4><?php esc_html_e( 'Ask your question:', 'simple-support-system' ); ?></h4>
                             <p>
                                 <input type="text" name="title" value="<?php echo ( ! empty( $_POST['title'] )? $_POST['title'] : '' ) ?>" placeholder="Topic Title">
                             </p>
                             <p>
                                 <textarea name="message" cols="30" rows="10"><?php echo ( ! empty( $_POST['message'] )? $_POST['message'] : '' ) ?></textarea>
                             </p>
-                            <input type="submit" value="Submit">
+                            <input type="submit" value="<?php esc_html_e( 'Submit', 'simple-support-system' ); ?>">
                             <?php
                         } else {
                             echo '<p class="non-pcode-user">'. esc_html__( 'Please enter an item purchase code on Your Purchases page, before you submit a ticket.', 'simple-support-system' ) . '</p>';
