@@ -99,6 +99,25 @@ class Simple_Support_System_Options {
             )
         );
 
+        add_settings_field(
+            'restrict_admin',
+            __( 'Restrict Admin Side Access', 'simple-support-system' ),
+            array( $this, 'select_option_field' ),
+            'simple_support_system_page',
+            'simple_support_system_section',
+            array (
+                'field_id'          => 'restrict_admin',
+                'field_option'      => 'simple_support_system_option',
+                'field_default'     => 's',
+                'field_options'     => array(
+                    '0'   => __( 'Subscriber ( Level 0 )', 'simple-support-system' ),
+                    '1'    => __( 'Contributor ( Level 1 )', 'simple-support-system' ),
+                    '2'    => __( 'Author ( Level 2 )', 'simple-support-system' ),
+                ),
+                'field_description' => __( 'Restrict admin side access to any user level equal to or below the selected user level.', 'simple-support-system' ),
+            )
+        );
+
         /**
          * Register Settings
          */
@@ -112,7 +131,6 @@ class Simple_Support_System_Options {
     public function sss_section_desc() {
         echo '<p>'. __( 'Using options provided below, You can configure the simple support system settings.', 'simple-support-system' ) . '</p>';
     }
-
 
     /**
      * Reusable text option field for settings page
@@ -137,7 +155,39 @@ class Simple_Support_System_Options {
             }
 
         } else {
-            _e( 'Field id is missing!', 'simple-support-system' );
+            esc_html_e( 'Field id is missing!', 'simple-support-system' );
+        }
+    }
+
+    /**
+     * Reusable select options field for settings page
+     *
+     * @param $args array field arguments
+     */
+    public function select_option_field( $args ) {
+        extract( $args );
+        if( $field_id ) {
+
+                $fields_values = get_option( 'simple_support_system_option' );
+
+                // Default value or stored value based on option field
+                if( isset( $fields_values[$field_id] ) ) {
+                    $existing_value = $fields_values[$field_id];
+                } else {
+                    $existing_value = '';
+                }
+            ?>
+            <select name="<?php echo $field_option . '[' . $field_id . ']'; ?>" class="sss-select-field <?php echo $field_id; ?>">
+                <?php foreach( $field_options as $key => $value ) { ?>
+                    <option value="<?php echo $key; ?>" <?php selected( $existing_value, $key ); ?>><?php echo $value; ?></option>
+                <?php } ?>
+            </select>
+            <?php
+            if ( isset( $field_description ) ) {
+                echo '<br/><label class="sss-field-description">' . $field_description . '</label>';
+            }
+        } else {
+            esc_html_e( 'Field id is missing!', 'simple-support-system' );
         }
     }
 }

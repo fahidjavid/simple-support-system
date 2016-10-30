@@ -76,6 +76,8 @@ class Simple_Support_System {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
+        add_action( 'admin_init', array( $this, 'sss_hide_admin_bar' ) );
+
 	}
 
 	/**
@@ -232,5 +234,42 @@ class Simple_Support_System {
 	public function get_version() {
 		return $this->version;
 	}
+
+    /**
+     * Checks if current user is restricted or not
+     *
+     * @return bool
+     */
+    function sss_is_user_restricted() {
+        $current_user = wp_get_current_user();
+        $sss_optinos = get_option( 'simple_support_system_option' );
+
+        // get restricted level from theme options
+        $restricted_level = $sss_optinos['restrict_admin'];
+        if ( ! empty( $restricted_level ) ) {
+            $restricted_level = intval( $restricted_level );
+        } else {
+            $restricted_level = 0;
+        }
+
+        // Redirects user below a certain user level to home url
+        // Ref: https://codex.wordpress.org/Roles_and_Capabilities#User_Level_to_Role_Conversion
+        if ( $current_user->user_level <= $restricted_level ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Hide the admin bar on front end for users with user level equal to or below restricted level
+     */
+    function sss_hide_admin_bar() {
+        if ( is_user_logged_in() ) {
+            if ( $this->sss_is_user_restricted() ) {
+                add_filter( 'show_admin_bar', '__return_false' );
+            }
+        }
+    }
 
 }
