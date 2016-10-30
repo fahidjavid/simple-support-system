@@ -1,0 +1,20 @@
+{
+  "name": "simple-support-system",
+  "version": "1.0.0",
+  "description": "Simple Support System plugin interacts with Envato API to allow (verified) users registration with their item purchase codes and get support for the purchased items from the items author.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp-notify": "^2.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://fahidjavid@bitbucket.org/fahidfarid/simple-support-system.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/fahidfarid/simple-support-system#readme"
+}
