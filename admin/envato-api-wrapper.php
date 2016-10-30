@@ -57,7 +57,7 @@ class SSS_Envato_API_Wrapper {
         $envato_header['headers'] = array( "Authorization" => "Bearer " . $this->envato_token );
         $envato_purchases = wp_safe_remote_request( $envato_apiurl, $envato_header );
 
-        if( is_string( $envato_purchases['body'] ) ) {
+        if( ! is_wp_error( $envato_purchases ) && is_string( $envato_purchases['body'] ) ) {
             $purchases_body = json_decode( $envato_purchases['body'], true );
             $body_array = (array) $purchases_body['verify-purchase']; // use json_decode
 

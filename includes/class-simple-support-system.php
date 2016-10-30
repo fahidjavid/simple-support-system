@@ -76,7 +76,7 @@ class Simple_Support_System {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
-        add_action( 'admin_init', array( $this, 'sss_hide_admin_bar' ) );
+        add_action( 'init', array( $this, 'sss_hide_admin_bar' ) );
 
 	}
 
@@ -240,7 +240,7 @@ class Simple_Support_System {
      *
      * @return bool
      */
-    function sss_is_user_restricted() {
+    public function sss_is_user_restricted() {
         $current_user = wp_get_current_user();
         $sss_optinos = get_option( 'simple_support_system_option' );
 
@@ -264,7 +264,7 @@ class Simple_Support_System {
     /**
      * Hide the admin bar on front end for users with user level equal to or below restricted level
      */
-    function sss_hide_admin_bar() {
+    public function sss_hide_admin_bar() {
         if ( is_user_logged_in() ) {
             if ( $this->sss_is_user_restricted() ) {
                 add_filter( 'show_admin_bar', '__return_false' );
