@@ -29,8 +29,9 @@ class SSS_Envato_API_Wrapper {
 
     function __construct() {
 
-        $this->envato_token = get_theme_mod( 'inspiry_envato_token' );
-        $this->mailbox = get_theme_mod( 'inspiry_mailbox_address' );
+        $sss_options = get_option( 'simple_support_system_option' );
+        $this->envato_token = sanitize_text_field( $sss_options['envato_api_token'] );
+        $this->mailbox = sanitize_email( $sss_options['mailbox_address'] );
     }
 
     /**
