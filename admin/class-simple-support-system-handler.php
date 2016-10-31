@@ -327,7 +327,7 @@ class Simple_Support_System_Handler {
                         $codes = get_user_meta( $user_id, 'item_purchase_code' );
 
                         if( ! empty( $codes ) ) {
-
+                            echo '<div class="sss-select-theme-wrap">';
                             echo '<h4>'. esc_html__( 'Select an item:', 'simple-support-system' ) .'</h4>';
 
                             foreach ( $codes as $code ) {
@@ -347,10 +347,10 @@ class Simple_Support_System_Handler {
                                         ?>
                                         <label class="sss-select-theme">
                                             <?php
-                                                echo '<input class="theme-select-radio" type="radio" name="theme" value="' . $purchase_info['item_name'] . '" ' . $supported . '><span class="' . $supported . '"">' . $purchase_info['item_name'] . '</span><br>';
-                                                if( $supported == 'disabled' ) {
-                                                    echo '<span class="tooltiptext">'. esc_html__( 'This item support period has been expired.', 'simple-support-system' ) .'</span>';
-                                                }
+                                            echo '<input class="theme-select-radio" type="radio" name="theme" value="' . $purchase_info['item_name'] . '" ' . $supported . '><span class="' . $supported . '"">' . $purchase_info['item_name'] . '</span><br>';
+                                            if( $supported == 'disabled' ) {
+                                                echo '<span class="tooltiptext">'. esc_html__( 'This item support period has been expired.', 'simple-support-system' ) .'</span>';
+                                            }
                                             ?>
                                         </label>
                                         <br>
@@ -358,6 +358,8 @@ class Simple_Support_System_Handler {
                                     }
                                 }
                             }
+                            echo '</div>';
+
                             ?>
                             <h4><?php esc_html_e( 'Ask your question:', 'simple-support-system' ); ?></h4>
                             <p>
