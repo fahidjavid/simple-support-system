@@ -70,6 +70,8 @@
 .sss-select-theme input[type=radio] {
     margin-right: 10px;
     vertical-align: middle;
+    margin-top: 0;
+    margin-left: 2px;
 }
 
 /*** Tooltip ***/
@@ -159,11 +161,10 @@ ul.sss-message.error li:before {
 .sss-form h4 {
     margin-bottom: 5px;
 }
-
 .sss-form input[type=text],
 .sss-form input[type=email],
 .sss-form input[type=password] {
-    min-height: 48px;
+    min-height: 30px;
 }
 .sss-form input[type="text"],
 .sss-form input[type="email"],
@@ -172,7 +173,7 @@ ul.sss-message.error li:before {
 .sss-form input[type="password"],
 .sss-form textarea {
     font-size: 16px;
-    width: 100%;
+    width: 98%;
     -webkit-appearance: none;
     -moz-appearance: none;
     outline: none;
