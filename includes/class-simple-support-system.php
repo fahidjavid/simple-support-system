@@ -245,9 +245,8 @@ class Simple_Support_System {
         $sss_optinos = get_option( 'simple_support_system_option' );
 
         // get restricted level from theme options
-        $restricted_level = $sss_optinos['restrict_admin'];
-        if ( ! empty( $restricted_level ) ) {
-            $restricted_level = intval( $restricted_level );
+        if( isset( $sss_optinos['restrict_admin'] ) && ! empty( $sss_optinos['restrict_admin'] ) ) {
+            $restricted_level = intval( $sss_optinos['restrict_admin'] );
         } else {
             $restricted_level = 0;
         }
