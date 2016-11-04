@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Simple Support System
  * Plugin URI:        https://www.fahidjavid.com
- * Description:       Offers simple support system to provide Envato items support to the verified buyers of your items. Also, enables the support grant based on the supported time period of an item.
+ * Description:       Offers simple support system to provide Envato items support to the verified buyers of your items.
  * Version:           1.0.0
  * Author:            Fahid Javid
  * Author URI:        https://www.fahidjavid.com

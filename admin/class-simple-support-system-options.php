@@ -81,7 +81,7 @@ class Simple_Support_System_Options {
                 'field_id'        => 'envato_api_token',
                 'field_option'    => 'simple_support_system_option',
                 'field_default'   => '',
-                'field_description' => __( 'Please provide an envato api token here.', 'simple-support-system' ),
+                'field_description' => __( 'Please provide an <a href="https://build.envato.com/create-token/" target="_blank">Envato API Token</a> here.', 'simple-support-system' ),
             )
         );
 
