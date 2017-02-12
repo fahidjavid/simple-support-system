@@ -250,6 +250,8 @@ class Simple_Support_System_Handler {
      */
     public function list_user_purchases() {
 
+        ob_start();
+        
         $envato = new SSS_Envato_API_Wrapper();
 
         if( is_user_logged_in() ) {
@@ -288,6 +290,8 @@ class Simple_Support_System_Handler {
         } else {
             echo '<p>'. esc_html__( 'Login required to view user Purchases.', 'simple-support-system' ) .'</p>';
         }
+        
+        return ob_get_clean();
     }
 
     /**
