@@ -130,6 +130,11 @@ class Simple_Support_System {
          */
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-simple-support-system-options.php';
 
+        /**
+         * The class responsible for providing WordPress dashboard widget
+         */
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/wp-dashboard-widget.php';
+
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
@@ -176,6 +181,10 @@ class Simple_Support_System {
         add_shortcode( 'sss_login_user', array( $sss_handler, 'sss_login_user_form') );
         add_shortcode( 'sss_create_ticket', array( $sss_handler, 'sss_create_ticket_form') );
         add_shortcode( 'sss_list_purchases', array( $sss_handler, 'list_user_purchases') );
+
+
+        $sss_dash_widget = new SSS_WP_Dashboard_Widget();
+        $this->loader->add_action('wp_dashboard_setup', $sss_dash_widget, 'add_dashboard_widgets' );
 
     }
 
