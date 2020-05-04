@@ -2,8 +2,8 @@
 Contributors: fahidjavid
 Tags: support, envato, api, register, login, shortcode
 Requires at least: 3.0
-Tested up to: 5.0
-Stable tag: 5.0
+Tested up to: 5.4.1
+Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,10 @@ Yes, it works with all major PHP versions and I have tested it with PHP version 
 
 
 == Changelog ==
+
+= 1.1.0 =
+
+* Tested with WordPress 5.4.1
 
 = 1.0.0 =
 

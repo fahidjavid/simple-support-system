@@ -16,7 +16,7 @@
  * Plugin Name:       Simple Support System
  * Plugin URI:        https://www.fahidjavid.com
  * Description:       Offers simple support system to provide Envato items support to the verified buyers of your items.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Fahid Javid
  * Author URI:        https://www.fahidjavid.com
  * License:           GPL-2.0+
